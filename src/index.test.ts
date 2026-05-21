@@ -1,0 +1,22 @@
+import { describe, it, expect } from 'vitest';
+import { mkScalar, mkArray } from '@specodec/typespec-emitter-core/test-utils';
+import { typeToGo, readExpr, writeExpr, writeLines, defaultValue } from './index.js';
+
+describe('typeToGo', () => {
+  it('string → string', () => expect(typeToGo(mkScalar('string') as any)).toBe('string'));
+  it('boolean → bool', () => expect(typeToGo(mkScalar('boolean') as any)).toBe('bool'));
+  it('int32 → int32', () => expect(typeToGo(mkScalar('int32') as any)).toBe('int32'));
+  it('int64 → int64', () => expect(typeToGo(mkScalar('int64') as any)).toBe('int64'));
+  it('float32 → float32', () => expect(typeToGo(mkScalar('float32') as any)).toBe('float32'));
+  it('float64 → float64', () => expect(typeToGo(mkScalar('float64') as any)).toBe('float64'));
+  it('bytes → []byte', () => expect(typeToGo(mkScalar('bytes') as any)).toBe('[]byte'));
+  it('model → model name', () => expect(typeToGo({ kind: 'Model', name: 'User' } as any)).toBe('*User'));
+});
+
+describe('readExpr', () => {
+  it('int32', () => expect(readExpr(mkScalar('int32') as any)).toContain('ReadInt32'));
+  it('string', () => expect(readExpr(mkScalar('string') as any)).toContain('ReadString'));
+  it('bool', () => expect(readExpr(mkScalar('boolean') as any)).toContain('ReadBool'));
+  it('float32', () => expect(readExpr(mkScalar('float32') as any)).toContain('ReadFloat32'));
+  it('bytes', () => expect(readExpr(mkScalar('bytes') as any)).toContain('ReadBytes'));
+});

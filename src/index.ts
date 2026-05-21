@@ -25,7 +25,7 @@ let goModelNs = new Map<string, string>();
 
 function goPkg(name: string): string { return dottedPathToSnakeCase(name); }
 
-function typeToGo(type: Type): string {
+export function typeToGo(type: Type): string {
   const n = scalarName(type);
   if (n === "string") return "string";
   if (n === "boolean") return "bool";
@@ -48,7 +48,7 @@ function typeToGo(type: Type): string {
   return "interface{}";
 }
 
-function writeExpr(type: Type, varExpr: string): string {
+export function writeExpr(type: Type, varExpr: string): string {
   const n = scalarName(type);
   if (n === "string") return `w.WriteString(${varExpr})`;
   if (n === "boolean") return `w.WriteBool(${varExpr})`;
@@ -86,7 +86,7 @@ function writeExpr(type: Type, varExpr: string): string {
   return `w.WriteString(fmt.Sprintf("%v", ${varExpr}))`;
 }
 
-function readExpr(type: Type, optional?: boolean): string {
+export function readExpr(type: Type, optional?: boolean): string {
   const n = scalarName(type);
   if (n === "string") return `r.ReadString()`;
   if (n === "boolean") return `r.ReadBool()`;
@@ -121,7 +121,7 @@ function readExpr(type: Type, optional?: boolean): string {
   return `r.ReadString()`;
 }
 
-function generateFieldRead(f: { name: string; type: Type; optional: boolean }, r: string, indent: string, skipIndent: string, counter: { value: number }): { stmts: string[]; value: string } {
+export function generateFieldRead(f: { name: string; type: Type; optional: boolean }, r: string, indent: string, skipIndent: string, counter: { value: number }): { stmts: string[]; value: string } {
   const type = f.type;
   const optional = f.optional;
   const tmpVar = `tmp${counter.value++}`;
@@ -216,7 +216,7 @@ function generateFieldRead(f: { name: string; type: Type; optional: boolean }, r
   return { stmts: [], value: readExpr(type) };
 }
 
-function generateModelCode(m: Model): string {
+export function generateModelCode(m: Model): string {
   if (!m.name) return;
   const lines: string[] = [];
   const fields = extractFields(m);

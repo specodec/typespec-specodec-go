@@ -13,16 +13,16 @@
     },
     "./lib/main.tsp": "./lib/main.tsp"
   },
-  "scripts": {
+  "scripts": { "test": "vitest run",
     "build": "tsc",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@specodec/typespec-emitter-core": "^1.0.0",
     "@typespec/compiler": "^1.12.0",
     "typescript": "~5.6.0",
-    "@specodec/typespec-emitter-core": "^1.0.0"
+    "vitest": "^4.1.7"
   },
   "files": [
     "dist/**",
@@ -33,7 +33,7 @@
     "registry": "http://10.199.64.20:30000/api/packages/specodec/npm/"
   },
   "peerDependencies": {
-    "@typespec/compiler": "^1.12.0",
-    "@specodec/typespec-emitter-core": "^1.0.0"
+    "@specodec/typespec-emitter-core": "^1.0.0",
+    "@typespec/compiler": "^1.12.0"
   }
 }
