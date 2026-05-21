@@ -1,0 +1,7 @@
+{
+  "name": "specodec-emitter-golang-tests",
+  "private": true,
+  "dependencies": {
+    "@specodec/typespec-emitter-golang": "file:.."
+  }
+}
